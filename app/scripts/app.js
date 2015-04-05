@@ -48,8 +48,10 @@ define( [
                     .state( 'logged.index' , {
                         url : '/index' ,
                         templateUrl : 'views/index.html' ,
+                        controller : 'IndexController' ,
                         resolve : {
                             load : loadDeps( [
+                                'controllers/IndexController' ,
                                 'css!../styles/index'
                             ] )
                         }

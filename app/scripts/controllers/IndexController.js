@@ -1,21 +1,14 @@
 define( [
-    './controllers'
+    './controllers' ,
+
+    // 子控制器单独引用其他指令或服务
+    '../directives/index-des'
 ] , function ( controllers ) {
     controllers.register
-        .controller( 'LoginController' , [
-            '$scope' , '$state' , 'UserLogin' ,
-            function ( $s , $state , UserLogin ) {
-                $s.formData = {
-                    username : localStorage.username || '' ,
-                    password : localStorage.password || ''
-                };
-
-                $s.login = function () {
-                    UserLogin.login( $s.formData ).catch( function () {
-                        alert( '用户名或密码错误' );
-                        $s.formData.password = '';
-                    } );
-                };
+        .controller( 'IndexController' , [
+            '$scope' ,
+            function ( $s ) {
+                $s.des = '这里是登录进来之后的首页，刷新本页会重新跳回到登录界面（因为我没有把登录状态记录在 localStorage里）';
             }
         ] );
 } );
