@@ -26,41 +26,26 @@ define( [ './services' ] , function ( services ) {
                 login : function ( data ) {
                     var def = $q.defer();
 
-                    // 验证是否正确
-                    $http( {
-                        url : './' ,
-                        method : 'GET'
-                    } )
-                        .success( function ( response ) {
-                            isLogged = true;
-                            $rootScope.username = data.username;
-                            def.resolve();
-                            onLogin();
-                        } ).error( function ( data , status ) {
-                            if ( 401 === status ) {
-                                def.reject();
-                            }
-                        } );
+                    isLogged = true;
+                    $rootScope.username = data.username;
+                    def.resolve();
+                    onLogin();
+
                     return def.promise;
                 }
             };
         }
-    ] ).config( [
-        '$urlRouterProvider' , function ( $urlRouterProvider ) {
-            $urlRouterProvider.deferIntercept();
-        }
     ] ).run( [
-        '$rootScope' , '$urlRouter' , '$state' , 'UserLogin' ,
-        function ( $rootScope , $urlRouter , $state , UserLogin ) {
-            $rootScope.$on( '$stateChangeSuccess' , function ( e ) {
-                if ( UserLogin.needCheck( $state.current ) && !UserLogin.logged ) {
+        '$rootScope' , '$urlRouter' , 'UserLogin' ,
+        function ( $rootScope , $urlRouter , UserLogin ) {
+            $rootScope.$on( '$stateChangeStart' , function ( e , toState ) {
+                if ( UserLogin.needCheck( toState ) && !UserLogin.logged ) {
                     e.preventDefault();
                     UserLogin.handleLogin().then( function () {
                         $urlRouter.sync();
                     } );
                 }
             } );
-            $urlRouter.listen();
         }
     ] );
 } );

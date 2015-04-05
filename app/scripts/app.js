@@ -40,6 +40,7 @@ define( [
                     }
                 } )
                     .state( 'logged' , {
+                        abstract : true ,
                         templateUrl : 'views/header.html' ,
                         resolve : {
                             load : loadDeps( [ 'css!../styles/header' ] )
