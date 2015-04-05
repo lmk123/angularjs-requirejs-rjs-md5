@@ -1,14 +1,22 @@
-// 仅仅是创建了一个模块
+// 仅仅是创建了一个模块，
 // 其它所有指令都挂载在这个模块下
 define( [
     'angular'
 ] , function ( angular ) {
-    var directives = angular.module( 'directives' , [] );
+    var module = angular.module( 'directives' , [] );
 
-    directives.config( [
+    module.register = {
+        controller : module.controller ,
+        directive : module.directive ,
+        filter : module.filter ,
+        factory : module.factory ,
+        service : module.service
+    };
+
+    module.config( [
         '$controllerProvider' , '$compileProvider' , '$filterProvider' , '$provide' ,
         function ( $controllerProvider , $compileProvider , $filterProvider , $provide ) {
-            directives.register = {
+            module.register = {
                 controller : $controllerProvider.register ,
                 directive : $compileProvider.directive ,
                 filter : $filterProvider.register ,
@@ -17,5 +25,5 @@ define( [
             };
         }
     ] );
-    return directives;
+    return module;
 } );

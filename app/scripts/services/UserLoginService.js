@@ -4,7 +4,7 @@
  * 若没有则跳到登录界面。
  */
 define( [ './services' ] , function ( services ) {
-    services.factory( 'UserLogin' , [
+    services.register.factory( 'UserLogin' , [
         '$q' , '$state' , '$http' , '$rootScope' , function ( $q , $state , $http , $rootScope ) {
             var loginDef ,
                 isLogged = false ,

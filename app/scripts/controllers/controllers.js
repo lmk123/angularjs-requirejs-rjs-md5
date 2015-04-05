@@ -7,20 +7,27 @@ define( [
     // 'services/services' ,
     // 'directives/directives' ,
 
-    // 公用的服务和指令列在下面。
-    // 注意：公用的服务和指令需要直接使用 module.factory 或 module.directive ，
-    // 而不是 module.register.factroy
+    // 公用的服务和指令列在下面
     '../services/UserLoginService' ,
     '../directives/focus-me'
 ] , function ( angular ) {
-    var controllers = angular.module( 'controllers' , [ 'directives' , 'services' ] );
+    var module = angular.module( 'controllers' , [ 'directives' , 'services' ] );
 
-    // 异步加载时不能直接用 controllers.controller 等方法，否则会报找不到的错误
+    // 统一注册接口，这样无论是全局服务还是懒加载的文件都能用一致的方式声明了
+    module.register = {
+        controller : module.controller ,
+        directive : module.directive ,
+        filter : module.filter ,
+        factory : module.factory ,
+        service : module.service
+    };
+
+    // 应用启动后不能直接用 module.controller 等方法，否则会报未定义的错误
     // 见 http://stackoverflow.com/questions/20909525/load-controller-dynamically-based-on-route-group
-    controllers.config( [
+    module.config( [
         '$controllerProvider' , '$compileProvider' , '$filterProvider' , '$provide' ,
         function ( $controllerProvider , $compileProvider , $filterProvider , $provide ) {
-            controllers.register = {
+            module.register = {
                 controller : $controllerProvider.register ,
                 directive : $compileProvider.directive ,
                 filter : $filterProvider.register ,
@@ -29,5 +36,5 @@ define( [
             };
         }
     ] );
-    return controllers;
+    return module;
 } );
