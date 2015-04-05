@@ -16,7 +16,7 @@
 
 [app.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/app.js) 里面定义了路由，使用路由的 `resolve` 属性（见 [$stateProvider](http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$stateProvider) 里的 `.state()` 方法）依赖每个路由需要的控制器和样式，例如 [index 路由](https://github.com/lmk123/angularjs-all-lazyload/blob/gh-pages/app/scripts/app.js#L48)依赖 [controllers/IndexController.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/controllers/IndexController.js) 与 [styles/index.css](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/styles/index.css)；
 
-最后，控制器会依赖用得到的指令和服务，例如  [controllers/IndexController.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/controllers/IndexController.js) 会依赖 [directives/index-des.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/directives/index-des.js)。
+最后，控制器会依赖_用得到的指令和服务_，例如  [controllers/IndexController.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/controllers/IndexController.js) 会依赖 [directives/index-des.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/directives/index-des.js)。
 
 ### Todos
 
