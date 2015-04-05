@@ -1,6 +1,6 @@
 # AngularJS-all-lazyload
 
-这是一个 AngularJS 项目脚手架，做到了完全按需加载控制器、指令、服务和样式（模板本身就是按需加载的）。[在线示例请戳我](http://lmk123.github.io/angularjs-all-lazyload/app/index.html)。
+这是一个 AngularJS 项目脚手架，做到了完全按需加载控制器、指令、服务和样式（模板本身就是按需加载的）。[在线示例请戳我](http://lmk123.github.io/angularjs-all-lazyload/app/index.html)，也非常欢迎你在[这篇博文](https://github.com/lmk123/blog/issues/9)里与我讨论这样做是否合适。
 
 ### 什么是按需加载
 
