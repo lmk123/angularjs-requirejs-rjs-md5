@@ -1,4 +1,4 @@
-define( [ './directives' ] , function ( directives ) {
+define( [ '../app' ] , function ( directives ) {
     directives.directive( 'indexDes' , function () {
         return {
             link : function ( scope , element ) {
