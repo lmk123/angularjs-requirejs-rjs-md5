@@ -1,6 +1,5 @@
 define( [
-    'angular' ,
-    'angularUIRouter'
+    'angular'
 ] , function ( angular ) {
     return angular.module( 'app' , [] )
         .config( [

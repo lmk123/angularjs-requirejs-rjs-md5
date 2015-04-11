@@ -1,7 +1,6 @@
 require.config( {
     paths : {
-        angular : '../vendor/angular/angular' ,
-        angularUIRouter : '../vendor/angular/angular-ui-router'
+        angular : '../vendor/angular/angular'
     } ,
     shim : {
         angular : {
@@ -37,7 +36,7 @@ require.config( {
                 };
             }
         } ,
-        angularUIRouter : [ 'angular' ]
+        '../vendor/angular/angular-ui-router' : [ 'angular' ]
     } ,
     map : {
         '*' : {
@@ -48,14 +47,19 @@ require.config( {
 
 define( [
     'angular' ,
-    'angularUIRouter' ,
+
+    // 第三方库只需要列在这里就可以了
+    '../vendor/angular/angular-ui-router' ,
+
+    // 别忘了依赖 app 模块
     './app' ,
 
-    // 公用的服务和指令列在下面
+    // 公用的服务和指令列在下面。
+    // 这些模块因为都依赖 app.js ，所以必须声明在这里而不是 app.js 里。
     'services/UserLoginService' ,
     'directives/focus-me'
 ] , function ( angular ) {
-    angular.module( 'bootstrap' , [ 'ui.router' , 'app' ] );
+    angular.module( 'bootstrap' , [ 'ui.router' , 'app' ] ); // 注意：app 模块只能放在最后一个，因为它依赖前面的第三方模块！
     angular.bootstrap( document , [ 'bootstrap' ] );
 } );
 
