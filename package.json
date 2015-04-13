@@ -1,0 +1,16 @@
+{
+  "name" : "demo-angularjs-all-lazyload" ,
+  "version" : "1.0.1" ,
+  "author" : "milk.lee@qq.com" ,
+  "repository" : "lmk123/app-another-one" ,
+  "devDependencies" : {
+    "gulp" : "*" ,
+    "gulp-uglify" : "*" ,
+    "gulp-rev-all" : "*" ,
+    "gulp-minify-css" : "*" ,
+    "gulp-htmlmin" : "*" ,
+    "gulp-concat" : "*" ,
+    "gulp-changed" : "*" ,
+    "del" : "*"
+  }
+}
