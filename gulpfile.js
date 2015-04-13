@@ -1,16 +1,22 @@
-var gulp        = require( 'gulp' ) ,
-    minifyJS    = require( 'gulp-uglify' ) ,
-    minifyCSS   = require( 'gulp-minify-css' ) ,
-    minifyHTML  = require( 'gulp-htmlmin' ) ,
-    revall      = require( 'gulp-rev-all' ) ,
-    changed     = require( 'gulp-changed' ) ,
-    concat      = require( 'gulp-concat' ) ,
-    deleteFile  = require( 'del' ) ,
+var gulp       = require( 'gulp' ) ,
+    minifyJS   = require( 'gulp-uglify' ) ,
+    minifyCSS  = require( 'gulp-minify-css' ) ,
+    minifyHTML = require( 'gulp-htmlmin' ) ,
+    Revall     = require( 'gulp-rev-all' ) ,
+    revall     = new Revall( {
+        transformFilename : function ( file , hash ) {
+            return hash.slice( 0 , 8 ) + file.path.slice( file.path.lastIndexOf( '.' ) );
+        }
+    } ) ,
+    changed    = require( 'gulp-changed' ) ,
+    concat     = require( 'gulp-concat' ) ,
+    deleteFile = require( 'del' ) ,
 
-    SRC         = 'www' ,
-    DIST        = 'build' ,
+    SRC        = 'www' ,
+    DIST       = 'build' ,
+    CDN        = 'cdn' ,
 
-    paths       = {
+    paths      = {
 
         js : [
             SRC + '/**/*.js'
@@ -26,7 +32,7 @@ var gulp        = require( 'gulp' ) ,
     };
 
 function clean( cb ) {
-    deleteFile( DIST , cb );
+    deleteFile( CDN , cb );
 }
 
 function js() {
@@ -63,26 +69,26 @@ function copy() {
  */
 function md5() {
     return gulp.src( DIST + '/**' )
-        .pipe( revall( {
-            base : DIST + '/common'
-        } ) )
-        .pipe( gulp.dest( 'cdn' ) )
-        .pipe( revall.manifest() )
-        .pipe( gulp.dest( 'cdn' ) );
+        .pipe( revall.revision() )
+        .pipe( gulp.dest( CDN ) )
+        .pipe( revall.manifestFile() )
+        .pipe( gulp.dest( CDN ) );
 }
 
 gulp.task( 'md5' , md5 );
 
 gulp.task( 'clean' , clean );
 
-gulp.task( 'js' , js );
+gulp.task( 'js' , [ 'clean' ] , js );
 
-gulp.task( 'css' , css );
+gulp.task( 'css' , [ 'clean' ] , css );
 
-gulp.task( 'html' , html );
+gulp.task( 'html' , [ 'clean' ] , html );
 
-gulp.task( 'copy' , copy );
+gulp.task( 'copy' , [ 'clean' ] , copy );
 
 gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , function ( cb ) {
-    cb();
+    md5().on( 'finish' , function () {
+        deleteFile( DIST , cb );
+    } );
 } );

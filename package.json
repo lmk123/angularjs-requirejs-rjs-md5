@@ -1,8 +1,8 @@
 {
-  "name" : "demo-angularjs-all-lazyload" ,
-  "version" : "1.0.1" ,
+  "name" : "angularjs-all-lazyload" ,
+  "version" : "1.0.0" ,
   "author" : "milk.lee@qq.com" ,
-  "repository" : "lmk123/app-another-one" ,
+  "repository" : "lmk123/angularjs-all-lazyload" ,
   "devDependencies" : {
     "gulp" : "*" ,
     "gulp-uglify" : "*" ,
