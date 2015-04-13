@@ -12,7 +12,7 @@ var gulp       = require( 'gulp' ) ,
     concat     = require( 'gulp-concat' ) ,
     deleteFile = require( 'del' ) ,
 
-    SRC        = 'www' ,
+    SRC        = 'app' ,
     DIST       = 'build' ,
     CDN        = 'cdn' ,
 
