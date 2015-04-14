@@ -77,12 +77,12 @@ gulp.task( 'md5' , md5 );
 
 gulp.task( 'clean' , clean );
 
-gulp.task( 'js' , [ 'clean' ] , js );
+gulp.task( 'js' , js );
 
-gulp.task( 'css' , [ 'clean' ] , css );
+gulp.task( 'css' , css );
 
-gulp.task( 'html' , [ 'clean' ] , html );
+gulp.task( 'html' , html );
 
-gulp.task( 'copy' , [ 'clean' ] , copy );
+gulp.task( 'copy' , copy );
 
 gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , md5 );
