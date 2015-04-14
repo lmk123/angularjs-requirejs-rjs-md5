@@ -3,6 +3,9 @@
   "version" : "1.0.0" ,
   "author" : "milk.lee@qq.com" ,
   "repository" : "lmk123/angularjs-all-lazyload" ,
+  "scripts" : {
+    "test" : "protractor test/protractor.conf.js"
+  } ,
   "devDependencies" : {
     "gulp" : "*" ,
     "gulp-uglify" : "*" ,
