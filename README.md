@@ -7,7 +7,7 @@
 以 AngularJS 里面的模板为例，如果你在路由中定义了 `templateUrl` 属性，那么只有当你第一次访问该路由时，AngularJS 才会去加载这个模板。此项目更进一步，做到了控制器、服务、指令与样式的按需加载。
 
 ### 如何将它用到自己的项目里
-先将代码库下载到本地，然后依次阅读 [app/scripts/bootstrap.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/bootstrap.js)、 [app/scripts/app.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/cdn/scripts/app.js) 与 [app/scripts/controllers/IndexController.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/app/scripts/controllers/IndexController.js)，你就明白了 :)
+先将代码库下载到本地，然后依次阅读 [app/scripts/bootstrap.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/app/scripts/bootstrap.js)、 [app/scripts/app.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/cdn/scripts/app.js) 与 [app/scripts/controllers/IndexController.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/app/scripts/controllers/IndexController.js)，你就明白了 :)
 
 ### 如何使用 md5 签名工具
 > 先确保你全局安装了 [gulp](https://github.com/gulpjs/gulp)
@@ -18,7 +18,7 @@
 ### 如何使用端到端测试
 > 先确保你全局安装了 [Protractor](https://github.com/angular/protractor)
 
-运行 `webdriver-manager start`，然后修改 [test/protractor.conf.js](https://github.com/lmk123/angularjs-all-lazyload/tree/gh-pages/test/protractor.conf.js) 里的 `appUrl` 属性，最后运行 `npm test`
+运行 `webdriver-manager start`，然后修改 [test/protractor.conf.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/test/e2e/loginSpec.js) 里的 `appUrl` 属性，最后运行 `npm test`
 ### Todos
 + 使用 r.js 将文件合理的合并在一起
 
