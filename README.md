@@ -18,7 +18,7 @@
 ### 如何使用端到端测试
 > 先确保你全局安装了 [Protractor](https://github.com/angular/protractor)
 
-运行 `webdriver-manager start`，然后修改 [test/protractor.conf.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/test/e2e/loginSpec.js) 里的 `appUrl` 属性，最后运行 `npm test`
+运行 `webdriver-manager start`，然后修改 [test/e2e/loginSpec.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/test/e2e/loginSpec.js) 里的 `appUrl` 变量，最后运行 `npm test`
 ### Todos
 + 使用 r.js 将文件合理的合并在一起
 
