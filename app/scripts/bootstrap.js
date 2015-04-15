@@ -6,10 +6,10 @@ require.config( {
         angular : {
             exports : 'angular' ,
             init : function () {
-                // ---------------------ÖØÒª´úÂë¶Î£¡------------------------------
-                // Ó¦ÓÃÆô¶¯ºó²»ÄÜÖ±½ÓÓÃ module.controller µÈ·½·¨£¬·ñÔò»á±¨¿ØÖÆÆ÷Î´¶¨ÒåµÄ´íÎó£¬
-                // ¼û http://stackoverflow.com/questions/20909525/load-controller-dynamically-based-on-route-group
-                // ´úÂë²Î¿¼£ºhttps://github.com/Treri/angular-require/blob/master/angular-require.js#L44
+                // ---------------------é‡è¦ä»£ç æ®µï¼------------------------------
+                // åº”ç”¨å¯åŠ¨åä¸èƒ½ç›´æ¥ç”¨ module.controller ç­‰æ–¹æ³•ï¼Œå¦åˆ™ä¼šæŠ¥æ§åˆ¶å™¨æœªå®šä¹‰çš„é”™è¯¯ï¼Œ
+                // è§ http://stackoverflow.com/questions/20909525/load-controller-dynamically-based-on-route-group
+                // ä»£ç å‚è€ƒï¼šhttps://github.com/Treri/angular-require/blob/master/angular-require.js#L44
                 var _module = angular.module;
                 angular.module = function () {
                     var newModule = _module.apply( angular , arguments );
@@ -48,19 +48,17 @@ require.config( {
 define( [
     'angular' ,
 
-    // µÚÈı·½¿âÖ»ĞèÒªÁĞÔÚÕâÀï¾Í¿ÉÒÔÁË
+    // ç¬¬ä¸‰æ–¹åº“åªéœ€è¦åˆ—åœ¨è¿™é‡Œå°±å¯ä»¥äº†
     '../vendor/angular/angular-ui-router' ,
 
-    // ±ğÍüÁËÒÀÀµ app Ä£¿é
+    // åˆ«å¿˜äº†ä¾èµ– app æ¨¡å—
     './app' ,
 
-    // ¹«ÓÃµÄ·şÎñºÍÖ¸ÁîÁĞÔÚÏÂÃæ¡£
-    // ÕâĞ©Ä£¿éÒòÎª¶¼ÒÀÀµ app.js £¬ËùÒÔ±ØĞëÉùÃ÷ÔÚÕâÀï¶ø²»ÊÇ app.js Àï¡£
+    // å…¬ç”¨çš„æœåŠ¡å’ŒæŒ‡ä»¤åˆ—åœ¨ä¸‹é¢ã€‚
+    // è¿™äº›æ¨¡å—å› ä¸ºéƒ½ä¾èµ– app.js ï¼Œæ‰€ä»¥å¿…é¡»å£°æ˜åœ¨è¿™é‡Œè€Œä¸æ˜¯ app.js é‡Œã€‚
     'services/UserLoginService' ,
     'directives/focus-me'
 ] , function ( angular ) {
-    angular.module( 'bootstrap' , [ 'ui.router' , 'app' ] ); // ×¢Òâ£ºapp Ä£¿éÖ»ÄÜ·ÅÔÚ×îºóÒ»¸ö£¬ÒòÎªËüÒÀÀµÇ°ÃæµÄµÚÈı·½Ä£¿é£¡
+    angular.module( 'bootstrap' , [ 'ui.router' , 'app' ] ); // æ³¨æ„ï¼šapp æ¨¡å—åªèƒ½æ”¾åœ¨æœ€åä¸€ä¸ªï¼Œå› ä¸ºå®ƒä¾èµ–å‰é¢çš„ç¬¬ä¸‰æ–¹æ¨¡å—ï¼
     angular.bootstrap( document , [ 'bootstrap' ] );
 } );
-
-
