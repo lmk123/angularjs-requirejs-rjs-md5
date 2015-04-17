@@ -36,7 +36,8 @@ require.config( {
                 };
             }
         } ,
-        '../vendor/angular/angular-ui-router' : [ 'angular' ]
+        '../vendor/angular/angular-ui-router' : [ 'angular' ] ,
+        '../../test/angular-mocks' : [ 'angular' ]
     } ,
     map : {
         '*' : {
@@ -50,6 +51,9 @@ define( [
 
     // 第三方库只需要列在这里就可以了
     '../vendor/angular/angular-ui-router' ,
+
+    // 测试时需要用到 angular-mocks.js，上线前记得注释掉，以免多加载一个文件
+    '../../test/angular-mocks' ,
 
     // 别忘了依赖 app 模块
     './app' ,
