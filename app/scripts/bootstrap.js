@@ -52,7 +52,7 @@ define( [
     // 第三方库只需要列在这里就可以了
     '../vendor/angular/angular-ui-router' ,
 
-    // 测试时需要用到 angular-mocks.js，上线前记得注释掉，以免多加载一个文件
+    // 如果测试时需要用到 angular-mocks.js 则取消注释，上线前一定记得注释掉，以免多加载一个文件
     '../../test/angular-mocks' ,
 
     // 别忘了依赖 app 模块
@@ -63,6 +63,7 @@ define( [
     'services/UserLoginService' ,
     'directives/focus-me'
 ] , function ( angular ) {
-    angular.module( 'bootstrap' , [ 'ui.router' , 'app' ] ); // 注意：app 模块只能放在最后一个，因为它依赖前面的第三方模块！
+    angular.module( 'all' , [ 'ui.router' , 'app' ] ); // 注意：app 模块只能放在最后一个，因为它依赖前面的第三方模块！
+    angular.module( 'bootstrap' , [ 'all' ] ); // 单独加一个 all 模块的原因见 test/protractor.conf.js 的 onPrepare 事件
     angular.bootstrap( document , [ 'bootstrap' ] );
 } );
