@@ -46,7 +46,7 @@ require.config( {
     }
 } );
 
-define( [
+require( [
     'angular' ,
 
     // 第三方库只需要列在这里就可以了
