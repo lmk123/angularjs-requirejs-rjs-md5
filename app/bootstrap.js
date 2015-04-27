@@ -53,7 +53,7 @@ require( [
     'vendor/angular/angular-ui-router' ,
 
     // 如果测试时需要用到 angular-mocks.js 则取消注释，上线前一定记得注释掉，以免多加载一个文件
-    '../test/angular-mocks' ,
+    //'../test/angular-mocks' ,
 
     // 别忘了依赖 app 模块
     './app' , // 前面的 ./ 必须带上，否则 gulp-rev-all 不会更新引用
