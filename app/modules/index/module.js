@@ -1,8 +1,8 @@
 define( [
-    '../app' ,
+    '../../app' ,
 
     // 子控制器单独引用其他指令或服务
-    '../directives/index-des'
+    '../../directives/index-des'
 ] , function ( controllers ) {
     controllers.controller( 'IndexController' , [
             '$scope' ,

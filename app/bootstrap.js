@@ -1,6 +1,6 @@
 require.config( {
     paths : {
-        angular : '../vendor/angular/angular'
+        angular : 'vendor/angular/angular'
     } ,
     shim : {
         angular : {
@@ -36,12 +36,12 @@ require.config( {
                 };
             }
         } ,
-        '../vendor/angular/angular-ui-router' : [ 'angular' ] ,
-        '../../test/angular-mocks' : [ 'angular' ]
+        'vendor/angular/angular-ui-router' : [ 'angular' ] ,
+        '../test/angular-mocks' : [ 'angular' ]
     } ,
     map : {
         '*' : {
-            'css' : '../vendor/require/css'
+            'css' : 'vendor/require/css'
         }
     }
 } );
@@ -50,13 +50,13 @@ require( [
     'angular' ,
 
     // 第三方库只需要列在这里就可以了
-    '../vendor/angular/angular-ui-router' ,
+    'vendor/angular/angular-ui-router' ,
 
     // 如果测试时需要用到 angular-mocks.js 则取消注释，上线前一定记得注释掉，以免多加载一个文件
-    '../../test/angular-mocks' ,
+    '../test/angular-mocks' ,
 
     // 别忘了依赖 app 模块
-    './app' ,
+    './app' , // 前面的 ./ 必须带上，否则 gulp-rev-all 不会更新引用
 
     // 公用的服务和指令列在下面。
     // 这些模块因为都依赖 app.js ，所以必须声明在这里而不是 app.js 里。

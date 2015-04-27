@@ -1,5 +1,5 @@
 define( [
-    '../app'
+    '../../app'
 ] , function ( controllers ) {
     controllers.controller( 'LoginController' , [
             '$scope' , '$state' , 'UserLogin' ,

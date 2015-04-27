@@ -10,14 +10,15 @@ define( [
 
                 // 设置路由
                 $stateProvider.state( 'login' , {
-                    templateUrl : 'views/login.html' ,
+                    url : '/login' ,
+                    templateUrl : 'modules/login/login.html' ,
                     controller : 'LoginController' ,
                     resolve : {
                         load : loadDeps( [
-                            'controllers/LoginController' ,
+                            'modules/login/module' ,
 
                             // .css 后缀需要带上，否则 gulp-rev-all 不会更新引用
-                            'css!../styles/login.css' // 依赖的 css 可以写在这里，也可以写在 LoginController.js 里
+                            'css!./styles/login.css' // 依赖的 css 可以写在这里，也可以写在 LoginController.js 里
                         ] )
                     }
                 } )
@@ -25,17 +26,17 @@ define( [
                         abstract : true ,
                         templateUrl : 'views/header.html' ,
                         resolve : {
-                            load : loadDeps( [ 'css!../styles/header.css' ] )
+                            load : loadDeps( [ 'css!styles/header.css' ] )
                         }
                     } )
                     .state( 'logged.index' , {
                         url : '/index' ,
-                        templateUrl : 'views/index.html' ,
+                        templateUrl : 'modules/index/index.html' ,
                         controller : 'IndexController' ,
                         resolve : {
                             load : loadDeps( [
-                                'controllers/IndexController' ,
-                                'css!../styles/index.css'
+                                'modules/index/module' ,
+                                'css!./styles/index.css'
                             ] )
                         }
                     } );
