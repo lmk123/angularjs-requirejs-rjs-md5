@@ -9,7 +9,6 @@ require.config( {
                 // ---------------------重要代码段！------------------------------
                 // 应用启动后不能直接用 module.controller 等方法，否则会报控制器未定义的错误，
                 // 见 http://stackoverflow.com/questions/20909525/load-controller-dynamically-based-on-route-group
-                // 代码参考：https://github.com/Treri/angular-require/blob/master/angular-require.js#L44
                 var _module = angular.module;
                 angular.module = function () {
                     var newModule = _module.apply( angular , arguments );
@@ -20,15 +19,42 @@ require.config( {
                             '$filterProvider' ,
                             '$provide' ,
                             function ( $controllerProvider , $compileProvider , $filterProvider , $provide ) {
-                                newModule.controller = $controllerProvider.register;
-                                newModule.directive = $compileProvider.directive;
-                                newModule.filter = $filterProvider.register;
-                                newModule.factory = $provide.factory;
-                                newModule.service = $provide.service;
-                                newModule.provider = $provide.provider;
-                                newModule.value = $provide.value;
-                                newModule.constant = $provide.constant;
-                                newModule.decorator = $provide.decorator;
+                                newModule.controller = function () {
+                                    $controllerProvider.register.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.directive = function () {
+                                    $compileProvider.directive.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.filter = function () {
+                                    $filterProvider.register.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.factory = function () {
+                                    $provide.factory.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.service = function () {
+                                    $provide.service.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.provider = function () {
+                                    $provide.provider.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.value = function () {
+                                    $provide.value.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.constant = function () {
+                                    $provide.constant.apply( this , arguments );
+                                    return this;
+                                };
+                                newModule.decorator = function () {
+                                    $provide.decorator.apply( this , arguments );
+                                    return this;
+                                };
                             }
                         ] );
                     }
