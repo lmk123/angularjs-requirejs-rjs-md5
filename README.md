@@ -14,7 +14,7 @@ The `gulp` command has follow steps:
 
 1. Compress files form [`app`](https://github.com/lmk123/angularjs-requirejs-rjs-md5/tree/master/app) folder to dir `build` folder;
 2. Use r.js to combine files and output to `build-requirejs`;
-3. Then use gulp-rev-all to rename files to a md5 filename and output to `cdn`.
+3. Then use gulp-rev-all to rename files to a md5 filename and output to [`cdn`](https://github.com/lmk123/angularjs-requirejs-rjs-md5/tree/master/cdn).
 
 See [gulpfile.js](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/gulpfile.js) for more infomation.
 
