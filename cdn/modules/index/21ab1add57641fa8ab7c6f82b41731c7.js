@@ -1,0 +1,1 @@
+define(["../../app","../../directives/949f1e3492ba304af0b87d977e95a557"],function(e){e.controller("IndexController",["$scope",function(e){e.des="这里是登录进来之后的首页，刷新本页会重新跳回到登录界面（因为我没有把登录状态记录在 localStorage里）"}])});

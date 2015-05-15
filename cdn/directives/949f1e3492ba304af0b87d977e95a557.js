@@ -1,0 +1,1 @@
+define(["../app"],function(n){n.directive("indexDes",function(){return{link:function(n,e){e[0].textContent=n.des}}})});
