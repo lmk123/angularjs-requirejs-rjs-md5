@@ -14,6 +14,7 @@
     "gulp-htmlmin" : "*" ,
     "gulp-concat" : "*" ,
     "gulp-changed" : "*" ,
-    "del" : "*"
+    "del" : "*" ,
+    "requirejs" : "*"
   }
 }

@@ -2,7 +2,6 @@ var gulp       = require( 'gulp' ) ,
     minifyJS   = require( 'gulp-uglify' ) ,
     minifyCSS  = require( 'gulp-minify-css' ) ,
     minifyHTML = require( 'gulp-htmlmin' ) ,
-    //Revall     = require( 'gulp-rev-all' ) ,
     revall     = new (require( 'gulp-rev-all' ))( {
         dontRenameFile : [ /^\/index\.html$/ ] ,
         transformFilename : function ( file , hash ) {
@@ -15,6 +14,7 @@ var gulp       = require( 'gulp' ) ,
 
     SRC        = 'app' ,
     DIST       = 'build' ,
+    REQUIREJS  = 'build-requirejs' ,
     CDN        = 'cdn' ,
 
     paths      = {
@@ -33,7 +33,7 @@ var gulp       = require( 'gulp' ) ,
     };
 
 function clean( cb ) {
-    deleteFile( [ DIST , CDN ] , cb );
+    deleteFile( [ DIST , REQUIREJS , CDN ] , cb );
 }
 
 function js() {
@@ -66,12 +66,33 @@ function copy() {
 }
 
 function md5() {
-    return gulp.src( DIST + '/**' )
+    return gulp.src( REQUIREJS + '/**' )
         .pipe( revall.revision() )
         .pipe( gulp.dest( CDN ) )
         .pipe( revall.manifestFile() )
         .pipe( gulp.dest( CDN ) );
 }
+
+function requirejs( done ) {
+    var r = require( 'requirejs' );
+    r.optimize( {
+        appDir : DIST ,
+        baseUrl : './' ,
+        dir : REQUIREJS ,
+        optimize : 'none' ,
+        optimizeCss : 'none' ,
+        removeCombined : true ,
+        mainConfigFile : DIST + '/bootstrap.js' ,
+        modules : [
+            {
+                name : "bootstrap"
+            }
+        ] ,
+        logLevel : 1
+    } , done );
+}
+
+gulp.task( 'requirejs' , requirejs );
 
 gulp.task( 'md5' , md5 );
 
@@ -85,4 +106,8 @@ gulp.task( 'html' , html );
 
 gulp.task( 'copy' , copy );
 
-gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , md5 );
+gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , function ( done ) {
+    requirejs( function () {
+        md5().on( 'finish' , done );
+    } );
+} );

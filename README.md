@@ -19,8 +19,6 @@
 > 先确保你全局安装了 [Protractor](https://github.com/angular/protractor)
 
 修改 [test/protractor.conf.js](https://github.com/lmk123/angularjs-all-lazyload/tree/master/test/protractor.conf.js) 里的 `params.appUrl` 变量，然后运行 `npm test`
-### Todos
-+ 使用 r.js 将文件合理的合并在一起
 
 ### 许可
 MIT
