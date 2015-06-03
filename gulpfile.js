@@ -20,16 +20,16 @@ var gulp       = require( 'gulp' ) ,
     paths      = {
 
         js : [
-            SRC + '/**/*.js'
+            REQUIREJS + '/**/*.js'
         ] ,
 
-        cssFiles : [ SRC + '/**/*.css' ] ,
+        cssFiles : [ REQUIREJS + '/**/*.css' ] ,
 
-        htmlFiles : SRC + '/**/*.html' ,
+        htmlFiles : REQUIREJS + '/**/*.html' ,
 
-        imageFiles : SRC + '/**/*.{png,jpg,gif}' ,
+        imageFiles : REQUIREJS + '/**/*.{png,jpg,gif}' ,
 
-        copyFiles : [ SRC + '/**/*' , '!' + SRC + '/**/*.{js,css,html}' ]
+        copyFiles : [ REQUIREJS + '/**/*' , '!' + REQUIREJS + '/**/*.{js,css,html}' , '!' + REQUIREJS + '/build.txt' ]
     };
 
 function clean( cb ) {
@@ -38,21 +38,21 @@ function clean( cb ) {
 
 function js() {
     return gulp.src( paths.js )
-        .pipe( changed( DIST ) )
+        //.pipe( changed( DIST ) )
         .pipe( minifyJS() )
         .pipe( gulp.dest( DIST ) );
 }
 
 function css() {
     return gulp.src( paths.cssFiles )
-        .pipe( changed( DIST ) )
+        //.pipe( changed( DIST ) )
         .pipe( minifyCSS() )
         .pipe( gulp.dest( DIST ) );
 }
 
 function html() {
-    return gulp.src( paths.htmlFiles , { base : SRC } )
-        .pipe( changed( DIST ) )
+    return gulp.src( paths.htmlFiles , { base : REQUIREJS } )
+        //.pipe( changed( DIST ) )
         .pipe( minifyHTML( {
             removeComments : true ,
             collapseWhitespace : true
@@ -61,53 +61,55 @@ function html() {
 }
 function copy() {
     return gulp.src( paths.copyFiles )
-        .pipe( changed( DIST ) )
+        //.pipe( changed( DIST ) )
         .pipe( gulp.dest( DIST ) );
 }
 
 function md5() {
-    return gulp.src( REQUIREJS + '/**' )
+    return gulp.src( DIST + '/**' )
         .pipe( revall.revision() )
-        .pipe( gulp.dest( CDN ) )
-        .pipe( revall.manifestFile() )
         .pipe( gulp.dest( CDN ) );
+    //.pipe( revall.manifestFile() )
+    //.pipe( gulp.dest( CDN ) );
 }
 
 function requirejs( done ) {
     var r = require( 'requirejs' );
     r.optimize( {
-        appDir : DIST ,
+        appDir : SRC ,
         baseUrl : './' ,
         dir : REQUIREJS ,
         optimize : 'none' ,
         optimizeCss : 'none' ,
         removeCombined : true ,
-        mainConfigFile : DIST + '/bootstrap.js' ,
+        mainConfigFile : SRC + '/bootstrap.js' ,
         modules : [
             {
                 name : "bootstrap"
             }
         ] ,
         logLevel : 1
-    } , done );
+    } , function () {
+        done();
+    } );
 }
 
 gulp.task( 'requirejs' , requirejs );
 
-gulp.task( 'md5' , md5 );
+gulp.task( 'md5' , [ 'requirejs' ] , md5 );
 
 gulp.task( 'clean' , clean );
 
-gulp.task( 'js' , js );
+gulp.task( 'js' , [ 'requirejs' ] , js );
 
-gulp.task( 'css' , css );
+gulp.task( 'css' , [ 'requirejs' ] , css );
 
-gulp.task( 'html' , html );
+gulp.task( 'html' , [ 'requirejs' ] , html );
 
-gulp.task( 'copy' , copy );
+gulp.task( 'copy' , [ 'requirejs' ] , copy );
 
 gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , function ( done ) {
-    requirejs( function () {
-        md5().on( 'finish' , done );
-    } );
+    //requirejs( function () {
+    md5().on( 'finish' , done );
+    //} );
 } );
