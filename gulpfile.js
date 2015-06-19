@@ -1,6 +1,6 @@
 var SRC           = 'app' ,
-    DIST          = 'build' ,
     REQUIREJS     = 'build-requirejs' ,
+    DIST          = 'build' ,
     CDN           = 'cdn' ,
 
     // 如果不是 null，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
@@ -34,15 +34,12 @@ var SRC           = 'app' ,
     };
 
 if ( CDN_PREFIX ) {
-    var indexHtmlContent = fs.readFileSync( SRC + '/index.html' , { encoding : 'utf8' } ) ,
-        dataMain         = 'data-main=' ,
-        dataMainLength   = dataMain.length;
+    var indexHtmlContent = fs.readFileSync( SRC + '/index.html' , { encoding : 'utf8' } );
 
     revAllOptions.transformPath = function ( rev , source , file ) {
-        var index = indexHtmlContent.search( '"' + source + '"' );
         //console.log( rev , source );
         // 如果这个文件在 src/index.html 里出现了，就加上 cdn 前缀
-        if ( index > 0 && indexHtmlContent.slice( index - dataMainLength , index ) !== dataMain ) {
+        if ( indexHtmlContent.search( '"' + source + '"' ) > 0 ) {
             return CDN_PREFIX + rev;
         }
         return rev;
@@ -51,9 +48,9 @@ if ( CDN_PREFIX ) {
 
 var revall = new (require( 'gulp-rev-all' ))( revAllOptions );
 
-function addCdnPrefix( done ) {
+function prefix( done ) {
     if ( CDN_PREFIX ) {
-        var bootStrapFilePath = DIST + '/bootstrap.js';
+        var bootStrapFilePath = REQUIREJS + '/bootstrap.js';
 
         // var _CDN_PREFIX_ = './';
         fs.writeFileSync(
@@ -128,22 +125,20 @@ function requirejs( done ) {
     } );
 }
 
-gulp.task( 'requirejs' , requirejs );
-
-gulp.task( 'md5' , [ 'requirejs' ] , md5 );
-
 gulp.task( 'clean' , clean );
 
-gulp.task( 'js' , [ 'requirejs' ] , js );
+gulp.task( 'requirejs' , requirejs ); //第一步： 从 SRC 把文件合并至 REQUIREJS 文件夹
 
-gulp.task( 'css' , [ 'requirejs' ] , css );
+gulp.task( 'prefix' , [ 'requirejs' ] , prefix ); // 第二步：给 REQUIREJS 文件夹下的文件添加 cdn 前缀
 
-gulp.task( 'html' , [ 'requirejs' ] , html );
+// 第三步：下面四个操作是并行的，用于将 REQUIREJS 文件夹下的文件精简至 DIST 文件夹
+gulp.task( 'js' , [ 'prefix' ] , js );
 
-gulp.task( 'copy' , [ 'requirejs' ] , copy );
+gulp.task( 'css' , [ 'prefix' ] , css );
 
-gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , function ( done ) {
-    addCdnPrefix( function () {
-        md5().on( 'finish' , done );
-    } );
-} );
+gulp.task( 'html' , [ 'prefix' ] , html );
+
+gulp.task( 'copy' , [ 'prefix' ] , copy );
+
+// 第四步：将 DIST 文件夹下的文件打上 md5 签名并输出到 CDN 文件夹
+gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'copy' ] , md5 );
