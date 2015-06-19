@@ -5,7 +5,7 @@ var SRC              = 'app' ,
 
     // 如果不是 null，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
     // 这里作为示例使用了 https 的链接
-    CDN_PREFIX       = 'https://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/' ,
+    CDN_PREFIX       = 'https://dn-lmk123.qbox.me/angularjs-requirejs-rjs-md5/cdn/' ,
     paths            = {
         js : [
             REQUIREJS + '/**/*.js'
@@ -33,9 +33,11 @@ var SRC              = 'app' ,
         } ,
         transformPath : function ( rev , source , file ) {
             //console.log( rev , source );
-            // 如果这个文件在 src/index.html 里出现了，或者是 html 文件（即模板文件），就加上 cdn 前缀
-            if ( (CDN_PREFIX && indexHtmlContent.search( '"' + source + '"' ) > 0) || '.html' === source.slice( -5 ) ) {
-                return CDN_PREFIX + rev;
+            if ( CDN_PREFIX ) {
+                // 如果这个文件在 src/index.html 里出现了，或者是 html 文件（即模板文件），就加上 cdn 前缀
+                if ( indexHtmlContent.search( '"' + source + '"' ) > 0 || '.html' === source.slice( -5 ) ) {
+                    return CDN_PREFIX + rev;
+                }
             }
             return rev;
         }
