@@ -4,7 +4,6 @@ var SRC              = 'app' ,
     CDN              = 'cdn' ,
 
     // 如果不是 null，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
-    // 这里作为示例使用了 https 的链接
     CDN_PREFIX       = 'https://dn-lmk123.qbox.me/angularjs-requirejs-rjs-md5/cdn/' ,
     paths            = {
         js : [
@@ -47,7 +46,7 @@ gulp.task( 'clean' , clean );
 
 gulp.task( 'requirejs' , requirejs ); //第一步： 从 SRC 把文件合并至 REQUIREJS 文件夹
 
-gulp.task( 'prefix' , [ 'requirejs' ] , prefix ); // 第二步：给 REQUIREJS 文件夹下的文件添加 cdn 前缀
+gulp.task( 'prefix' , [ 'requirejs' ] , prefix ); // 第二步：把 REQUIREJS 文件夹下的 require.config() 里面的 baseUrl 替换成 CDN 地址
 
 // 第三步：下面四个操作是并行的，用于将 REQUIREJS 文件夹下的文件精简至 DIST 文件夹
 gulp.task( 'js' , [ 'prefix' ] , js );
@@ -65,11 +64,10 @@ function prefix( done ) {
     if ( CDN_PREFIX ) {
         var bootStrapFilePath = REQUIREJS + '/bootstrap.js';
 
-        // var _CDN_PREFIX_ = './';
         fs.writeFileSync(
             bootStrapFilePath ,
             fs.readFileSync( bootStrapFilePath , { encoding : 'utf8' } )
-                .replace( /baseUrl\s*:\s*('|")\.\/\1/ , 'baseUrl:"' + CDN_PREFIX + '"' ) // require.config 里面的 baseUrl 不能直接写成上面的变量，所以得单独替换
+                .replace( /baseUrl\s*:\s*('|")\.\/\1/ , 'baseUrl:"' + CDN_PREFIX + '"' )
         );
     }
     done();
