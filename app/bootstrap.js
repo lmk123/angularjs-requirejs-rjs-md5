@@ -1,4 +1,7 @@
+var _CDN_PREFIX_ = './';  // 这个值会在 gulp 时改成 gulpfile.js 里配置的 cdn 地址
+
 require.config( {
+    baseUrl : './' , // 这个值也会在 gulp 时改成 _CDN_PREFIX_ 的值，但是这里不能写成变量，否则 rjs 会报错
     paths : {
         angular : 'vendor/angular/angular'
     } ,
@@ -67,7 +70,8 @@ require.config( {
     } ,
     map : {
         '*' : {
-            'css' : 'vendor/require/css'
+            css : 'vendor/require/css' ,
+            text : 'vendor/require/text'
         }
     }
 } );
@@ -89,7 +93,22 @@ require( [
     'services/UserLoginService' ,
     'directives/focus-me'
 ] , function ( angular ) {
-    angular.module( 'all' , [ 'ui.router' , 'app' ] ); // 注意：app 模块只能放在最后一个，因为它依赖前面的第三方模块！
+    angular.module( 'all' , [ 'ui.router' , 'app' ] ) // 注意：app 模块只能放在最后一个，因为它依赖前面的第三方模块！
+        .config( [ // 拦截 angular 里的 $templateRequest 服务，给每个模板的请求加上 cdn 前缀
+            '$provide' , function ( $provide ) {
+                $provide.decorator( '$templateRequest' , [
+                    '$delegate' ,
+                    function ( $delegate ) {
+                        var slice = Array.prototype.slice;
+                        return function () {
+                            var args = slice.call( arguments , 0 );
+                            args[ 0 ] = _CDN_PREFIX_ + args[ 0 ];
+                            return $delegate.apply( null , args );
+                        };
+                    }
+                ] )
+            }
+        ] );
     angular.module( 'bootstrap' , [ 'all' ] ); // 单独加一个 all 模块的原因见 test/protractor.conf.js 的 onPrepare 事件
     angular.bootstrap( document , [ 'bootstrap' ] );
 } );
