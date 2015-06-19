@@ -6,7 +6,11 @@
 
 所有这些操作都只需要一个命令: `gulp`. 
 
-[在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/)。记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。
+[在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/)。记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，所有静态文件都是从 https://lmk123.github.io （注意 s）加载的，因为在 gulpfile.js 里指定了 cdn 前缀。
+
+### 添加 cdn 前缀
+
+在 gulpfile.js 里指定 `CDN_PREFIX` 变量的值，那么 `gulp` 命令会把 `require.config()` 的 `baseUrl` 改为这个值，并给所有的模板路径（即 `templateUrl` 属性）和 `app/index.html` 里引用的文件添加这个前缀。
 
 ### 它是怎么做到按需加载控制器、指令、过滤器等文件的？
 见 [app/bootstrap.js](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/app/bootstrap.js)。
