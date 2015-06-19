@@ -6,7 +6,7 @@
 
 所有这些操作都只需要一个命令: `gulp`. 
 
-[在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/)。记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，所有静态文件都是从 https://lmk123.github.io （注意 s）加载的，因为在 gulpfile.js 里指定了 cdn 前缀。
+[在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/)。记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，所有静态文件都是从 https://dn-lmk123.qbox.me 加载的，因为在 gulpfile.js 里指定了 cdn 前缀。
 
 ### 添加 cdn 前缀
 
