@@ -31,7 +31,6 @@ var SRC        = 'app' ,
     deleteFile = require( 'del' ) ,
     revall     = new (require( 'gulp-rev-all' ))( {
         dontRenameFile : [ /^\/index\.html$/g ] ,
-        dontUpdateReference : [ /^\/vendor\/.*/g ] ,
         dontSearchFile : [ /^\/vendor\/.*/g ] ,
         transformFilename : function ( file , hash ) {
             return hash + file.path.slice( file.path.lastIndexOf( '.' ) );
