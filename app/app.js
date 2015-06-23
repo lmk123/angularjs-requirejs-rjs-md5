@@ -1,7 +1,7 @@
 define( [
     'angular'
 ] , function ( angular ) {
-    return angular.module( 'app' , [] )
+    return angular.module( 'application' , [] )
         .config( [
             '$stateProvider' ,
             //'$urlRouterProvider' ,

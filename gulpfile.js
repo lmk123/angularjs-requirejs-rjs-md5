@@ -30,7 +30,9 @@ var SRC        = 'app' ,
     concat     = require( 'gulp-concat' ) ,
     deleteFile = require( 'del' ) ,
     revall     = new (require( 'gulp-rev-all' ))( {
-        dontRenameFile : [ /^\/index\.html$/ ] ,
+        dontRenameFile : [ /^\/index\.html$/g ] ,
+        dontUpdateReference : [ /^\/vendor\/.*/g ] ,
+        dontSearchFile : [ /^\/vendor\/.*/g ] ,
         transformFilename : function ( file , hash ) {
             return hash + file.path.slice( file.path.lastIndexOf( '.' ) );
         } ,
