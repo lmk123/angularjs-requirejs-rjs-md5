@@ -3,9 +3,14 @@ var SRC        = 'app' ,
     DIST       = 'build' ,
     CDN        = 'cdn' ,
 
-    // 如果不是 null，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
+    // 如果不是假值，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
     CDN_PREFIX = 'https://dn-lmk123.qbox.me/angularjs-requirejs-rjs-md5/cdn/' ,
+    //CDN_PREFIX = 'http://localhost:61111/angularjs-requirejs-rjs-md5/cdn/' ,
+    //CDN_PREFIX = false ,
     paths      = {
+
+        // data-main 与 html 里引用的 js 文件列在这里
+        jsNotLoadByRequireJS : [ 'bootstrap.js' , 'vendor/require/require.js' ] ,
         js : [
             REQUIREJS + '/**/*.js'
         ] ,
@@ -15,7 +20,6 @@ var SRC        = 'app' ,
         copyFiles : [ REQUIREJS + '/**/*' , '!' + REQUIREJS + '/**/*.{js,css,html}' , '!' + REQUIREJS + '/build.txt' ]
     } ,
 
-    fs         = require( 'fs' ) ,
     gulp       = require( 'gulp' ) ,
     minifyJS   = require( 'gulp-uglify' ) ,
     minifyCSS  = require( 'gulp-minify-css' ) ,
@@ -24,23 +28,18 @@ var SRC        = 'app' ,
     //changed    = require( 'gulp-changed' ) ,
     concat     = require( 'gulp-concat' ) ,
     deleteFile = require( 'del' ) ,
-    //indexHtmlContent = fs.readFileSync( SRC + '/index.html' , { encoding : 'utf8' } ) ,
     revall     = new (require( 'gulp-rev-all' ))( {
         dontRenameFile : [ /^\/index\.html$/ ] ,
         transformFilename : function ( file , hash ) {
             return hash + file.path.slice( file.path.lastIndexOf( '.' ) );
         } ,
         transformPath : function ( rev , source , file ) {
-            //console.log( rev , source , file );
-            //console.log( fs.statSync( SRC + '/' + source ) );
-            //if ( CDN_PREFIX ) {
-            // 如果这个文件在 src/index.html 里出现了，或者是 html 文件（即模板文件），就加上 cdn 前缀
-            //if ( indexHtmlContent.search( '"' + source + '"' ) > 0 || '.html' === source.slice( -5 ) ) {
-            //if ( false ) {
-            return CDN_PREFIX + rev;
-            //}
-            //}
-            //return rev;
+            var rev_ext = rev.slice( rev.indexOf( '.' ) + 1 );
+            if ( !CDN_PREFIX || ('js' === rev_ext && paths.jsNotLoadByRequireJS.indexOf( source ) < 0) ) {
+                return rev;
+            } else {
+                return CDN_PREFIX + rev;
+            }
         }
     } );
 
