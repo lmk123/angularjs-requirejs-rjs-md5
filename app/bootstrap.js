@@ -1,5 +1,5 @@
 require.config( {
-    baseUrl : './' , // 这个值也会在 gulp 时改成 _CDN_PREFIX_ 的值，但是这里不能写成变量，否则 rjs 会报错
+    //baseUrl : './' , // 这个值也会在 gulp 时改成 _CDN_PREFIX_ 的值，但是这里不能写成变量，否则 rjs 会报错
     paths : {
         angular : 'vendor/angular/angular'
     } ,
