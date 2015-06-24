@@ -10,8 +10,12 @@ var SRC        = 'app' ,
     //CDN_PREFIX = false ,
     paths      = {
 
-        // data-main 与 html 里引用的 js 文件列在这里
+        // 默认情况下所有 js 文件都是由 requireJS 加载的是不需要加前缀的，所以这里要列出不是由 requireJS 加载的 js 文件
         jsNotLoadByRequireJS : [ 'bootstrap.js' , 'vendor/require/require.js' ] ,
+
+        // 默认情况下所有 css 文件都是要加前缀的，但是由 requireJS 加载的 css 文件不用加
+        cssLoadByRequireJS : [ /^styles\/.*/ ] ,
+
         js : [
             REQUIREJS + '/**/*.js'
         ] ,
@@ -40,15 +44,20 @@ var SRC        = 'app' ,
             //    console.log( 'debugger here' );
             //}
             if ( CDN_PREFIX ) {
-                if ( '.js' === file.revFilenameExtOriginal ) {
-                    if ( paths.jsNotLoadByRequireJS.indexOf( file.revPathOriginal.slice( file.base.length ).replace( /\\/g , '/' ) ) < 0 ) {
-                        return rev;
-                    } else {
-                        return CDN_PREFIX + rev;
-                    }
-                } else {
-                    return CDN_PREFIX + rev;
+                var filePath = file.revPathOriginal.slice( file.base.length ).replace( /\\/g , '/' ) ,
+                    ext      = file.revFilenameExtOriginal;
+
+                // 不是由 requireJS 加载的 js 文件要加前缀，由 requireJS 加载的 css 文件不要加前缀
+                if (
+                    ('.js' === ext && !matchArray( filePath , paths.jsNotLoadByRequireJS ))
+                    ||
+                    ('.css' === ext && matchArray( filePath , paths.cssLoadByRequireJS ))
+                ) {
+                    return rev;
                 }
+
+                // 其他文件一律加前缀
+                return CDN_PREFIX + rev;
             } else {
                 return rev;
             }
@@ -130,5 +139,20 @@ function requirejs( done ) {
         logLevel : 1
     } , function () {
         done();
+    } );
+}
+
+/**
+ * 匹配一个数组，数组可能有正则
+ * @param {String} value - 要匹配的值
+ * @param {Array} arr - 匹配数组
+ * @returns {boolean} - 有一个匹配项则返回 true，否则返回 false
+ */
+function matchArray( value , arr ) {
+    return arr.some( function ( v ) {
+        if ( 'string' === typeof v ) {
+            return v === value;
+        }
+        return v.test( value );
     } );
 }
