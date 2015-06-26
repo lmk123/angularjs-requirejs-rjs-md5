@@ -88,7 +88,7 @@ $stateProvider
 
 例如 `vendor/require/require.js` 里面有一段代码：`this.map.isDefine ? 'define' : 'require'`，_gulp-rev-all_ 在把 require.js 重命名的时候，也会把这段代码里面的 _require_ 给一并重命名掉，这是很多 bug 出现的根源。所以我在 gulpfile.js 中声明 `dontSearchFile : [ /^\/vendor\/.*/ ]` 忽略了 `vendor` 文件夹下的文件。
 
-对于自己写的代码，就需要保证代码里出现字符串的地方不要与文件名相同，否则要再三确认即使被重命名了也不会影响逻辑。
+对于自己写的代码，就要保证代码里出现字符串的地方不要与文件名相同，否则要再三确认即使被重命名了也不会影响逻辑。详情见[这里](https://github.com/smysnk/gulp-rev-all#annotater--replacer)。
 
 ### License
 MIT
