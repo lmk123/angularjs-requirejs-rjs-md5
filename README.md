@@ -6,7 +6,7 @@ A boilerplate for [angularjs](https://angularjs.org/). It use [requirejs](http:/
 
 All of these operations only need one command: `gulp`. 
 
-[Online preview is here.](http://lmk123.github.io/angularjs-requirejs-rjs-md5/cdn/) User your network panel from dev tool to check the files load status.
+[Online preview is here.](http://lmk123.github.io/angularjs-requirejs-rjs-md5/) User your network panel from dev tool to check the files load status.
 
 ### How dose it lazyload controllers (or filters, directives and so on)?
 See [app/bootstrap.js](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/app/bootstrap.js).
