@@ -14,6 +14,8 @@
  
 [在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/)，记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，在线预览的所有静态文件都是从 https://dn-lmk123.qbox.me 加载的，这是因为在 gulpfile.js 里指定了 `CDN_PREFIX` 变量。
 
+另外，[我的个人网站](https://github.com/lmk123/lmk123.github.io/tree/source)也使用了此结构，这是一个更加真实的使用场景。
+
 ### 添加 cdn 前缀
 
 在 gulpfile.js 里指定 `CDN_PREFIX` 变量的值，那么 `gulp` 命令会给所有的路径（例如代码里的 `templateUrl` 模板路径、html 文件里引用的图片、脚本、样式表等文件）添加这个前缀；[app/index.html](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/app/index.html) 里的 [data-main](http://requirejs.org/docs/api.html#data-main) 也会加上这个前缀，所以 [baseUrl](http://requirejs.org/docs/api.html#config-baseUrl) 会被自动设为这个值。
