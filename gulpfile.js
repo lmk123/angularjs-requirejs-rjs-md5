@@ -5,7 +5,7 @@ var SRC        = 'app' ,
 
     // 如果不是假值，那么这个值会作为 cdn 前缀追加到需要加载的文件里。
     // 注意：最后面的斜线 / 一定要加上
-    CDN_PREFIX = 'https://dn-lmk123.qbox.me/angularjs-requirejs-rjs-md5/cdn/' ,
+    CDN_PREFIX = 'https://dn-lmk123.qbox.me/angularjs-requirejs-rjs-md5/' ,
     //CDN_PREFIX = 'http://localhost:61111/angularjs-requirejs-rjs-md5/cdn/' ,
     //CDN_PREFIX = false ,
     paths      = {
