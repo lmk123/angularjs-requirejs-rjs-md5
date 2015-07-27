@@ -22,9 +22,15 @@ var SRC        = 'app' ,
         cssFiles : [ REQUIREJS + '/**/*.css' ] ,
         htmlFiles : REQUIREJS + '/**/*.html' ,
         imageFiles : REQUIREJS + '/**/*.{png,jpg,gif}' ,
-        copyFiles : [ REQUIREJS + '/**/*' , '!' + REQUIREJS + '/**/*.{js,css,html}' , '!' + REQUIREJS + '/build.txt' ]
+        copyFiles : [
+            REQUIREJS + '/**/*' ,
+            '!' + REQUIREJS + '/**/*.{js,css,html}' ,
+            '!' + REQUIREJS + '/build.txt' ,
+            '!' + REQUIREJS + '/vendor/bootstrap/config.json'
+        ]
     } ,
 
+    fs         = require( 'fs' ) ,
     gulp       = require( 'gulp' ) ,
     minifyJS   = require( 'gulp-uglify' ) ,
     minifyCSS  = require( 'gulp-minify-css' ) ,
@@ -35,7 +41,7 @@ var SRC        = 'app' ,
     deleteFile = require( 'del' ) ,
     revall     = new (require( 'gulp-rev-all' ))( {
         dontRenameFile : [ /^\/index\.html$/g ] ,
-        dontSearchFile : [ /^\/vendor\/.*/g ] ,
+        dontSearchFile : [ /^\/vendor\/angular\/.*/g , /^\/vendor\/require\/.*/g ] ,
         transformFilename : function ( file , hash ) {
             return hash + file.path.slice( file.path.lastIndexOf( '.' ) );
         } ,
@@ -56,8 +62,24 @@ var SRC        = 'app' ,
                     return rev;
                 }
 
-                // 其他文件一律加前缀
-                return CDN_PREFIX + rev;
+                /**
+                 * 为什么要判断文件是否存在？这是不是多此一举？
+                 *
+                 * 之所以要这么做，是因为如果 css 文件里有引用相对路径的其他资源（比如图片、字体），
+                 * 那么产生的路径是错误的，而这些文件其实不需要加 cdn 前缀，因为只要引用它们的 css 文件加了前
+                 * 缀，那此 css 所引用的相对路径的文件也会从 cdn 上加载
+                 */
+                var r;
+                try {
+                    // 如果文件存在，则加上 cdn
+                    fs.statSync( DIST + '/' + source );
+                    r = CDN_PREFIX + rev;
+                }
+                catch ( e ) {
+                    // 否则不加
+                    r = rev;
+                }
+                return r;
             } else {
                 return rev;
             }
@@ -66,7 +88,7 @@ var SRC        = 'app' ,
 
 gulp.task( 'clean' , clean );
 
-gulp.task( 'requirejs' , requirejs ); //第一步： 从 SRC 把文件合并至 REQUIREJS 文件夹
+gulp.task( 'requirejs' , [ 'clean' ] , requirejs ); //第一步： 从 SRC 把文件合并至 REQUIREJS 文件夹
 
 // 第二步：下面四个操作是并行的，用于将 REQUIREJS 文件夹下的文件精简至 DIST 文件夹
 gulp.task( 'js' , [ 'requirejs' ] , js );
