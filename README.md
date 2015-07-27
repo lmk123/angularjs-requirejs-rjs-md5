@@ -1,6 +1,6 @@
 # angularjs-requirejs-rjs-md5
 
-这是一个 [angularjs](https://angularjs.org/) 的示例项目. 它使用 [requirejs](http://requirejs.org/) 按需加载控制器、指令、过滤器等文件，然后使用 [r.js](https://github.com/jrburke/r.js/) 将这些零散的文件按照模块的划分合理的合并在一起，然后使用各种 [gulp](http://gulpjs.com/) 插件精简文件，最后使用 [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) 将这些文件全都根据文件内容重命名成 md5 的文件名。
+这是一个 [AngularJS](https://angularjs.org/) 的示例项目。它使用 [RequireJS](http://requirejs.org/) 按需加载控制器、指令、过滤器等文件，然后使用 [r.js](https://github.com/jrburke/r.js/) 将这些零散的文件按照模块的划分合理的合并在一起，然后使用各种 [gulp](http://gulpjs.com/) 插件精简文件，最后使用 [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) 将这些文件全都根据文件内容重命名成 md5 的文件名。
 
 所有这些操作都只需要一个命令: `gulp`. 
 
@@ -12,9 +12,9 @@
  4. 修改 [gulpfile.js](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/gulpfile.js) 里的 `CDN_PREFIX` 变量为 `false`
  5. 运行 `gulp`，然后在 web 服务器中打开 [cdn/index.html](https://github.com/lmk123/angularjs-requirejs-rjs-md5/blob/master/cdn/index.html)。双击打开（即以 file:// 协议打开）是无效的。
  
-[在线预览在这里](http://lmk123.github.io/angularjs-requirejs-rjs-md5/)，记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，在线预览的所有静态文件都是从 https://dn-lmk123.qbox.me 加载的，这是因为在 gulpfile.js 里指定了 `CDN_PREFIX` 变量。
+[在线预览在这里](http://arrm.limingkai.cn)，记得打开浏览器的开发人员工具的网络面板来查看文件加载情况。注意，在线预览的所有静态文件都是从 https://dn-lmk123.qbox.me 加载的，这是因为在 gulpfile.js 里指定了 `CDN_PREFIX` 变量。
 
-另外，[我的个人网站](https://github.com/lmk123/lmk123.github.io/tree/source)也使用了此结构，这是一个更加真实的使用场景。
+另外，[我的个人网站](https://github.com/lmk123/lmk123.github.io)也使用了此结构，这是一个更加真实的使用场景。
 
 ### 添加 cdn 前缀
 
