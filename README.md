@@ -1,3 +1,5 @@
+**这个项目已经不再维护了，因为 [Webpack](http://webpack.github.io/) 提供了更好的解决方案。**
+
 # angularjs-requirejs-rjs-md5
 
 这是一个 [AngularJS](https://angularjs.org/) 的示例项目。它使用 [RequireJS](http://requirejs.org/) 按需加载控制器、指令、过滤器等文件，然后使用 [r.js](https://github.com/jrburke/r.js/) 将这些零散的文件按照模块的划分合理的合并在一起，然后使用各种 [gulp](http://gulpjs.com/) 插件精简文件，最后使用 [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) 将这些文件全都根据文件内容重命名成 md5 的文件名。
